@@ -1,9 +1,15 @@
+from copy import deepcopy
 
 class GameState:
 
     def __init__(self, board, player_id):
         self.board = board
         self.player_id = player_id
+        self.cols = deepcopy(board)
+        self.rows = list(zip(*board))
+        #diags1=
+        #diags2=
+
 
     @property
     def player_id(self):
@@ -16,10 +22,10 @@ class GameState:
         return any(self.possible_actions(self.board))
 
     def result(self, action):
-        board=self.board
-        board[action].insert(self.player_id,board[action].index(0))
-        new_player_id=self.new_player_id()
-        return GameState(board,new_player_id)
+        board = deepcopy(self.board)
+        board[action].insert(self.player_id, board[action].index(0))
+        new_player_id = self.new_player_id()
+        return GameState(board, new_player_id)
 
     def new_player_id(self):
         return self.player_id % 2 + 1
@@ -31,4 +37,4 @@ class GameState:
         winner = self.is_winner()
         if not winner:
             return None
-        return 1 if winner==self.player_id else 0
+        return 1 if winner == self.player_id else 0
