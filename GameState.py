@@ -1,15 +1,17 @@
 from copy import deepcopy
+#import re
 
 class GameState:
 
-    def __init__(self, board, player_id):
+    def __init__(self, board, player_id,rows,cols,diags):
         self.board = board
         self.player_id = player_id
-        self.cols = deepcopy(board)
-        self.rows = list(zip(*board))
-        #diags1=
-        #diags2=
-
+        self.poss_wins=rows+cols+diags
+        self.win_player1=[1,1,1,1]
+        self.win_player2=[2,2,2,2]
+        #self.cols = deepcopy(board)
+        #self.rows = list(zip(*board))
+        
 
     @property
     def player_id(self):
@@ -31,7 +33,12 @@ class GameState:
         return self.player_id % 2 + 1
 
     def is_winner(self):
-        pass
+        if self.win_player1 in self.poss_wins:
+            return 1
+        elif self.win_player2 in self.poss_wins:
+            return 2
+        else:
+            return 0
 
     def utility(self):
         winner = self.is_winner()
