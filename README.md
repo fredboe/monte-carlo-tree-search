@@ -1,1 +1,1 @@
-# monte-carlo-search-tree
+# monte-carlo-tree-search
