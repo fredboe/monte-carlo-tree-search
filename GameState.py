@@ -33,9 +33,9 @@ class GameState:
         return self.player_id % 2 + 1
 
     def is_winner(self):
-        if self.win_player1 in self.poss_wins:
+        if any(self.win_player1 == self.poss_wins[index:index + 4] for index in range(len(poss_wins) - 3)):
             return 1
-        elif self.win_player2 in self.poss_wins:
+        elif any(self.win_player1 == self.poss_wins[index:index + 4] for index in range(len(poss_wins) - 3)):
             return 2
         else:
             return 0
