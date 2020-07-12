@@ -1,5 +1,8 @@
 from copy import deepcopy
+from itertools import chain
 #import re
+
+#work with tuple of positions, instead of board array
 
 class GameState:
 
@@ -33,12 +36,16 @@ class GameState:
         return self.player_id % 2 + 1
 
     def is_winner(self):
-        if any(self.win_player1 == self.poss_wins[index:index + 4] for index in range(len(poss_wins) - 3)):
+        """#board=chain(*deepcopy(self.board))
+        #wins=[four for four in ]
+        #indexes=self.poss_wins[index:index + 4] for index in range(len(poss_wins) - 3)
+        if any(self.win_player1 == ):
             return 1
-        elif any(self.win_player1 == self.poss_wins[index:index + 4] for index in range(len(poss_wins) - 3)):
+        elif any(self.win_player1 == ):
             return 2
         else:
-            return 0
+            return 0"""
+        pass
 
     def utility(self):
         winner = self.is_winner()
