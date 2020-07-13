@@ -1,5 +1,10 @@
 from copy import deepcopy
-#import re
+import re
+
+STR_DIAG1=""
+STR_DIAG2=""
+STR_ROWS=""
+STR_COLS="1111"
 
 class GameState:
 
