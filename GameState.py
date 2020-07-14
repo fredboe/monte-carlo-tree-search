@@ -1,36 +1,39 @@
 from copy import deepcopy
 import re
 
-STR_DIAG1=""
-STR_DIAG2=""
-STR_ROWS=""
-STR_COLS="1111"
+STR_DIAG1 = "(1.......1.......1.......1)|(2.......2.......2.......2)"
+STR_DIAG2 = "(1.....1.....1.....1)|(1.....1.....1.....1)"
+STR_ROWS = "(1......1......1......1)|(2......2......2......2)"
+STR_COLS = "(1111)|(2222)"
+
 
 class GameState:
 
-    def __init__(self, board, player_id,rows,cols,diags):
+    def __init__(self, board, player_id):
         self.board = board
         self.player_id = player_id
-        self.poss_wins=rows+cols+diags
-        self.win_player1=[1,1,1,1]
-        self.win_player2=[2,2,2,2]
-        #self.cols = deepcopy(board)
-        #self.rows = list(zip(*board))
-        
+        self.win_player1 = [1, 1, 1, 1]
+        self.win_player2 = [2, 2, 2, 2]
+        # self.cols = deepcopy(board)
+        # self.rows = list(zip(*board))
 
     @property
     def player_id(self):
         return self.player_id
 
     def possible_actions(self):
-        return [self.board.index(col) for col in self.board if col[-1]==0]#TODO
+        important_cells = deepcopy(self.board[6:][::7])
+        return [index for index in range(0, len(important_cells)) if important_cells[index] == '0']
+        # return [self.board.index(col) for col in self.board if col[-1]==0]
 
     def has_actions(self):
         return any(self.possible_actions(self.board))
 
     def result(self, action):
         board = deepcopy(self.board)
-        board[action].insert(self.player_id, board[action].index(0))
+        action_col_list_index = action*7
+        index_of_zero = board[action_col_list_index:].index('0')
+        board[action*7+index_of_zero] = self.player_id
         new_player_id = self.new_player_id()
         return GameState(board, new_player_id)
 
@@ -38,12 +41,8 @@ class GameState:
         return self.player_id % 2 + 1
 
     def is_winner(self):
-        if any(self.win_player1 == self.poss_wins[index:index + 4] for index in range(len(poss_wins) - 3)):
-            return 1
-        elif any(self.win_player1 == self.poss_wins[index:index + 4] for index in range(len(poss_wins) - 3)):
-            return 2
-        else:
-            return 0
+        # here with re
+        pass
 
     def utility(self):
         winner = self.is_winner()
