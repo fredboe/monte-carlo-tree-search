@@ -16,6 +16,20 @@ class GameState:
         # self.cols = deepcopy(board)
         # self.rows = list(zip(*board))
 
+    def __str__(self):
+        headline = "Connect 4".center(21, "#")
+        cols = [self.board[cell:cell+7] for cell in range(0, len(self.board), 7)]
+        rows = list(zip(*cols))
+        str_board = ""
+        for row in rows:
+            str_board += "  ".join(row)
+            str_board += "\n"
+        end = ""
+        winner = self.winner()
+        if winner:
+            end += "The winner is Player "+str(winner)
+        return headline+"\n\n"+str_board+"\n"+end
+
     @property
     def player_id(self):
         return self.player_id
@@ -42,16 +56,16 @@ class GameState:
         return self.player_id % 2 + 1
 
     def terminal_state(self):
-        return True if self.is_winner() else False
+        return True if self.winner() else False
 
-    def is_winner(self):
+    def winner(self):
         win = re.search(STR_COLS+"|"+STR_ROWS+"|"+STR_DIAG1+"|"+STR_DIAG2, self.board)
         if win:
             return win.group()[0]
         return 0
 
     def utility(self):
-        winner = self.is_winner()
+        winner = self.winner()
         if not winner:
             return None
         return 1 if winner == self.player_id else 0
