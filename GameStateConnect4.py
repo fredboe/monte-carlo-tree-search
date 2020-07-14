@@ -6,7 +6,7 @@ STR_ROWS = "(1......1......1......1)|(2......2......2......2)"
 STR_COLS = "(1111)|(2222)"
 
 
-class GameState:
+class GameStateConnect4:
 
     def __init__(self, board, player_id):
         self.board = board
@@ -50,7 +50,7 @@ class GameState:
         index_of_zero = board[action_col_list_index:].index('0')
         board[action_col_list_index+index_of_zero] = self.player_id
         new_player_id = self.new_player_id()
-        return GameState(board, new_player_id)
+        return GameStateConnect4(board, new_player_id)
 
     def new_player_id(self):
         return self.player_id % 2 + 1
