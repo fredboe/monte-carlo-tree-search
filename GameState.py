@@ -1,4 +1,3 @@
-from copy import deepcopy
 import re
 
 STR_DIAG1 = "(1.......1.......1.......1)|(2.......2.......2.......2)"
@@ -22,27 +21,34 @@ class GameState:
         return self.player_id
 
     def possible_actions(self):
-        important_cells = deepcopy(self.board[6:][::7])
+        important_cells = self.board[6:][::7].copy()
         return [index for index in range(0, len(important_cells)) if important_cells[index] == '0']
         # return [self.board.index(col) for col in self.board if col[-1]==0]
 
-    def has_actions(self):
-        return any(self.possible_actions(self.board))
+    """def has_actions(self):
+        return any(self.possible_actions(self.board))"""
 
     def result(self, action):
-        board = deepcopy(self.board)
+        if self.terminal_state():
+            return None
+        board = self.board.copy()
         action_col_list_index = action*7
         index_of_zero = board[action_col_list_index:].index('0')
-        board[action*7+index_of_zero] = self.player_id
+        board[action_col_list_index+index_of_zero] = self.player_id
         new_player_id = self.new_player_id()
         return GameState(board, new_player_id)
 
     def new_player_id(self):
         return self.player_id % 2 + 1
 
+    def terminal_state(self):
+        return True if self.is_winner() else False
+
     def is_winner(self):
-        # here with re
-        pass
+        win = re.search(STR_COLS+"|"+STR_ROWS+"|"+STR_DIAG1+"|"+STR_DIAG2, self.board)
+        if win:
+            return win.group()[0]
+        return 0
 
     def utility(self):
         winner = self.is_winner()
