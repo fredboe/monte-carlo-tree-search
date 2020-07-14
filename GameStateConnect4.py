@@ -50,7 +50,7 @@ class GameStateConnect4:
         index_of_zero = board[action_col_list_index:].index('0')
         board[action_col_list_index+index_of_zero] = self.player_id
         new_player_id = self.new_player_id()
-        return GameState(board, new_player_id)
+        return GameStateConnect4(board, new_player_id)
 
     def new_player_id(self):
         return self.player_id % 2 + 1
