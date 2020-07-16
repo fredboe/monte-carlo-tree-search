@@ -31,7 +31,7 @@ class MCTSNode:
         state = self.gameState
         while True:
             if state.terminal_state():
-                return state.utility
+                return state.utility2(1)
             state = state.result(random.choice(state.actions))
 
     def backpropagate(self, value):
@@ -45,7 +45,7 @@ class MCTSNode:
 
     def expand(self):
         actions = self.gameState.actions
-        self.children = list(map(lambda a: self.create_child(a), actions))
+        self.children = [self.create_child(a) for a in actions]
 
     def create_child(self, action):
         return MCTSNode(self.gameState.result(action), [], self)
@@ -61,8 +61,13 @@ class MCTSTree:
         children = self.rootNode.children
         best_node = max(children, key=lambda child: child.t)
         max_index = children.index(best_node)
-        print(max_index, children[max_index].t)
         return self.initialState.actions[max_index]
+
+    def backpropagate(self, current, value):
+        current.n += 1
+        current.t += value
+        if current.parent:
+            self.backpropagate(current.parent, value)
 
     def runMCTS(self):
         start_time = time.time()
@@ -70,6 +75,8 @@ class MCTSTree:
             current = self.rootNode
             while current.children:
                 current = current.select(self.rootNode.n)
+            if current.gameState.terminal_state():
+                break
             if current.n == 0:
                 value = current.rollout()
             else:
@@ -77,4 +84,8 @@ class MCTSTree:
                 current = current.children[0]
                 value = current.rollout()
             current.backpropagate(value)
+        """try:
+            print(self.rootNode.children[0].children[0])
+        except Exception:
+            print("failed")"""
         return self.best_move()
