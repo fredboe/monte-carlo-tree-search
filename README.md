@@ -26,4 +26,3 @@ WARNING: The MCTS algorithm does not work properly!!!
 * https://www.youtube.com/watch?v=UXW2yZndl7U
 * http://www.diego-perez.net/papers/MCTSSurvey.pdf
 * https://en.wikipedia.org/wiki/Monte_Carlo_tree_search
-* 
