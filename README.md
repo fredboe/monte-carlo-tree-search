@@ -1,6 +1,6 @@
 # monte-carlo-tree-search
 
-**This is Versio 1**
+**This is Version 1**
 
 ## Project
 This project will contain a basic implementation of the Monte Carlo Tree Search.
