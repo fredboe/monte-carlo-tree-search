@@ -4,7 +4,6 @@ class AlphaBetaAgent:
         for action in state.actions:
             new_state=state.result(action)
             if new_state.terminal_state() and new_state.winner:
-                print("TEst")
                 return action
         return self.alpha_beta_search(state, depth)
 
@@ -37,10 +36,7 @@ class AlphaBetaAgent:
                     return value
                 alpha = max(alpha, value)
             return value
-        print("TEST")
-        print(max(state.actions, key=lambda x: min_value(state.result(x), alpha, beta, depth-1)))
         return max(state.actions, key=lambda x: min_value(state.result(x), alpha, beta, depth-1))
 
     def evaluation_function(self, state):
-        #print(state.count_evaluation())
         return state.count_evaluation()
