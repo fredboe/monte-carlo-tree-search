@@ -5,6 +5,9 @@ STR_DIAG2 = "(1.....1.....1.....1)|(2.....2.....2.....2)"
 STR_ROWS = "(1......1......1......1)|(2......2......2......2)"
 STR_COLS = "(1111)|(2222)"
 
+# update this to 0 or 2
+STR_EVAL = "(0|2.......0|2.......0|2.......0|2)|(0|2.....0|2.....0|2.....0|2)|(0|2......0|2......0|2......0|2)|(0|20|20|20|2)"
+STR_EVAL_OPP = "(0|1.......0|1.......0|1.......0|1)|(0|1.....0|1.....0|1.....0|1)|(0|1......0|1......0|1......0|1)|(0|10|10|10|1)"
 
 class GameState:
 
@@ -22,7 +25,7 @@ class GameState:
     def __str__(self):
         headline = "Connect 4".center(23, "-")
         length = len(self.board2)
-        print(length)
+        #print(length)
         cols = [self.board2[cell:cell+6][::-1] for cell in range(0, length, 6)]
         rows = list(zip(*cols))
         str_board = ""
@@ -94,7 +97,16 @@ class GameState:
             return int(win.group()[0])
         return 0
 
+    def utility(self, player):
+        if not self.winner:
+            return 0
+        return float("inf") if self.winner == player else float("-inf")
+
     def utility2(self, player):
         if not self.winner:
             return 0
-        return 5 if self.winner == player else -2
+        return 5 if self.winner == player else 0
+
+    def count_evaluation(self):
+        #print(re.findall(STR_EVAL, self.board))
+        return len(re.findall(STR_EVAL, self.board))-len(re.findall(STR_EVAL_OPP, self.board))
