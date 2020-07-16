@@ -2,6 +2,8 @@
 import sys
 from Game.GameStateConnect4 import GameState
 from Agents.MCTS import MCTSTree
+from Agents.Random import RandomAgent
+from Agents.AlphaBeta import AlphaBetaAgent
 
 
 """Games = namedtuple("Games", "Connect4")
@@ -21,16 +23,23 @@ class Match:
         self.agent = MCTSTree(self.initialGameState)
         self.run_Match(self.initialGameState)
 
-    def get_action_from_agent(self, GameState):
+    def get_action_from_agent_MCTS(self, GameState):
         return MCTSTree(GameState).runMCTS()
+
+    def get_action_from_agent_RANDOM(self, GameState):
+        return RandomAgent().get_action(GameState)
+
+    def get_action_from_agent_ALPHABETA(self, GameState):
+        return AlphaBetaAgent().get_action(GameState)
 
     def run_Match(self, GameState):
         while not GameState.terminal_state():
             if GameState.player_id == 1:
-                action = self.get_action_from_agent(GameState)
+                action = self.get_action_from_agent_MCTS(GameState)
                 #action = self.get_action_from_realWorld()
             else:
-                action = self.get_action_from_realWorld()
+                #action = self.get_action_from_realWorld()
+                action = self.get_action_from_agent_ALPHABETA(GameState)
             if action not in GameState.actions:
                 print("\n\nSorry, but this action isn't AVAILABLE.\n\n")
                 continue
