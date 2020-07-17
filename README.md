@@ -11,7 +11,7 @@ There will also be some diagrams that show the difference between the selection-
 For those who find this algorithm interesting I will also add some further reading/information below.
 
 ## Code
-I would be really pleased about some suggestions of improvement for my code or other stuff like documentation.  (documentation will be added very soon)
+I would be really pleased about some suggested improvements for my code or other stuff like documentation.  (documentation will be added very soon)
 
 ## Future
 1. I am probably going to add new games to the project (simple versions of chess, 2048)
