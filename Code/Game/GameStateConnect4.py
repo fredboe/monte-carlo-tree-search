@@ -5,9 +5,9 @@ STR_DIAG2 = "(1.....1.....1.....1)|(2.....2.....2.....2)"
 STR_ROWS = "(1......1......1......1)|(2......2......2......2)"
 STR_COLS = "(1111)|(2222)"
 
-# update this to 0 or 2
 STR_EVAL = "(0|2.......0|2.......0|2.......0|2)|(0|2.....0|2.....0|2.....0|2)|(0|2......0|2......0|2......0|2)|(0|20|20|20|2)"
 STR_EVAL_OPP = "(0|1.......0|1.......0|1.......0|1)|(0|1.....0|1.....0|1.....0|1)|(0|1......0|1......0|1......0|1)|(0|10|10|10|1)"
+
 
 class GameState:
 
@@ -15,17 +15,12 @@ class GameState:
         self.board = board
         self.board2 = re.sub(" ", "", self.board)
         self.player_id = player_id
-        self.win_player1 = [1, 1, 1, 1]
-        self.win_player2 = [2, 2, 2, 2]
         self.actions = self.possible_actions()
         self.winner = self.winner()
-        # self.cols = deepcopy(board)
-        # self.rows = list(zip(*board))
 
     def __str__(self):
-        headline = "Connect 4".center(23, "-")
+        headline = "Connect 4".center(19, "-")
         length = len(self.board2)
-        #print(length)
         cols = [self.board2[cell:cell+6][::-1] for cell in range(0, length, 6)]
         rows = list(zip(*cols))
         str_board = ""
@@ -34,7 +29,6 @@ class GameState:
             str_board += "\n"
         end = ""
         if self.winner:
-            #print(self.terminal_state())
             end += "The winner is Player "+str(self.winner)
         return headline+"\n\n"+str_board+"\n"+end
 
@@ -76,7 +70,6 @@ class GameState:
         board = self.board
         col_index = (action-1)*7
         i_of_zero = board[col_index:col_index+7].index('0')
-        #print(col_index+i_of_zero)
         board = self.create_new_board(board, col_index+i_of_zero)
         new_player_id = self.new_player_id()
         return GameState(board, new_player_id)
@@ -90,7 +83,6 @@ class GameState:
     def terminal_state(self):
         return True if self.winner or not self.has_actions() else False
 
-    # winner as getter and setter
     def winner(self):
         win = re.search(STR_COLS+"|"+STR_ROWS+"|"+STR_DIAG1+"|"+STR_DIAG2, self.board)
         if win:
@@ -105,8 +97,9 @@ class GameState:
     def utility2(self, player):
         if not self.winner:
             return 0
-        return 5 if self.winner == player else 0
+        return 1 if self.winner == player else -1
 
     def count_evaluation(self):
-        #print(re.findall(STR_EVAL, self.board))
-        return len(re.findall(STR_EVAL, self.board))-len(re.findall(STR_EVAL_OPP, self.board))
+        possible_win_comb = len(re.findall(STR_EVAL, self.board))
+        possible_win_comb_opp = len(re.findall(STR_EVAL_OPP, self.board))
+        return possible_win_comb-possible_win_comb_opp
