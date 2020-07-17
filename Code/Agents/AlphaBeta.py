@@ -32,10 +32,7 @@ class AlphaBetaAgent:
                     return value
                 alpha = max(alpha, value)
             return value
-        print("TEST")
-        print(max(state.actions, key=lambda x: min_value(state.result(x), alpha, beta, depth-1)))
         return max(state.actions, key=lambda x: min_value(state.result(x), alpha, beta, depth-1))
 
     def evaluation_function(self, state):
-        #print(state.count_evaluation())
         return state.count_evaluation()
