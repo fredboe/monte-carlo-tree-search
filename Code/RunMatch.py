@@ -18,37 +18,35 @@ class Match:
     def __init__(self, agents, start_board):
         self.agent_player, self.agent_opponent = agents
         self.start_board = start_board
-        self.initialGameState = GameState(start_board, 1)
-        # test phase
-        self.agent = MCTSTree(self.initialGameState)
-        self.run_Match(self.initialGameState)
+        self.initialState = GameState(start_board, 1)
+        self.run_Match(self.initialState)
 
-    def get_action_from_agent_MCTS(self, GameState):
-        return MCTSTree(GameState).runMCTS()
+    def get_action_from_agent_MCTS(self, state):
+        return MCTSTree(state).runMCTS()
 
-    def get_action_from_agent_RANDOM(self, GameState):
-        return RandomAgent().get_action(GameState)
+    def get_action_from_agent_RANDOM(self, state):
+        return RandomAgent().get_action(state)
 
-    def get_action_from_agent_ALPHABETA(self, GameState):
-        return AlphaBetaAgent().get_action(GameState)
+    def get_action_from_agent_ALPHABETA(self, state):
+        return AlphaBetaAgent().get_action(state)
 
-    def run_Match(self, GameState):
-        while not GameState.terminal_state():
-            if GameState.player_id == 1:
-                action = self.get_action_from_agent_MCTS(GameState)
-                #action = self.get_action_from_realWorld()
+    def run_Match(self, state):
+        while not state.terminal_state():
+            if state.player_id == 1:
+                action = self.get_action_from_agent_MCTS(state)
+                print("MCTS plays action: "+str(action))
             else:
-                #action = self.get_action_from_realWorld()
-                action = self.get_action_from_agent_ALPHABETA(GameState)
-            if action not in GameState.actions:
+                print("ALPHABETA plays action: "+str(action))
+                action = self.get_action_from_agent_ALPHABETA(state)
+            if action not in state.actions:
                 print("\n\nSorry, but this action isn't AVAILABLE.\n\n")
                 continue
-            GameState = GameState.result(action)
-            print(str(GameState))
-        winner = GameState.winner
+            state = state.result(action)
+            print(str(state))
+        winner = state.winner
         print("Player "+str(winner)+" has won." if winner else "Nobody won!")
 
-    def get_action_from_realWorld(self):
+    def get_action_from_REALWORLD(self):
         int_input = False
         action = None
         while not int_input:
@@ -67,9 +65,5 @@ class Match:
 
 
 if __name__ == "__main__":
-    """str_game = "Connect4"
-    agent_player = ""
-    agent_opponent = ""
-    game = games[str_game]"""
     # Crate Match Object
     match1 = Match(("player1", "player2"), start_board)
