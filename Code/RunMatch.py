@@ -52,14 +52,14 @@ class Match:
         while not int_input:
             try:
                 action = int(input("Please type in your action. "
-                                   + "It has to be a number between 1 and 8."
+                                   + "It has to be a number between 1 and 7."
                                    + "Type in 0 to stop the game!"))
                 if action == 0:
                     print("\nSomebody gave up!")
                     sys.exit()
                 int_input = True
             except ValueError:
-                print("Please type in a number between 1 and 8.")
+                print("Please type in a number between 1 and 7.")
                 continue
         return action
 
