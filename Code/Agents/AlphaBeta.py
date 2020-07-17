@@ -1,11 +1,6 @@
 class AlphaBetaAgent:
 
-    def get_action(self, state, depth=4):
-        for action in state.actions:
-            new_state=state.result(action)
-            if new_state.terminal_state() and new_state.winner:
-                print("TEst")
-                return action
+    def get_action(self, state, depth=5):
         return self.alpha_beta_search(state, depth)
 
     def alpha_beta_search(self, state, depth):
