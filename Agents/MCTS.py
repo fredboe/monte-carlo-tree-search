@@ -30,11 +30,11 @@ class MCTSNode:
     def set_children(self, children):
         self.children = children
 
-    def rollout(self):
+    def rollout(self, player_id):
         state = deepcopy(self.state)
         while True:
             if state.terminal_state():
-                return state.utility2(1)
+                return state.utility2(player_id)
             state = state.result(random.choice(state.actions))
 
     def backpropagate(self, value):
@@ -67,7 +67,7 @@ class MCTSTree:
         max_index = children.index(best_node)
         return self.initialState.actions[max_index]
 
-    def runMCTS(self, max_time=3):
+    def runMCTS(self, player_id, max_time=5):
         start_time = time.time()
         while time.time()-start_time < max_time:
             current = self.rootNode
@@ -77,6 +77,6 @@ class MCTSTree:
                     break
                 else:
                     current = current.select()
-            value = current.rollout()
+            value = current.rollout(player_id)
             current.backpropagate(value)
         return self.best_move()
