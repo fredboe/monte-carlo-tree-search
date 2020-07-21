@@ -13,9 +13,6 @@ For those who find this algorithm interesting I will also add some further readi
 ## Code
 I would be really pleased about some suggested improvements for my code or other stuff like documentation.  (documentation will be added very soon)
 
-## Future
-1. I am probably going to add new games to the project (simple versions of chess, 2048)
-
 ## Execute the code
 To see results you just need to execute RunMatch.py **-** soon you will be able to change the agents very easy and fast  (at the moment you have to change the functions name in run_match)
 
