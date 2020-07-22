@@ -1,6 +1,6 @@
 class AlphaBetaAgent:
 
-    def get_action(self, state, player_id, depth=7):
+    def get_action(self, state, player_id, depth=6):
         """
 
         Parameters:

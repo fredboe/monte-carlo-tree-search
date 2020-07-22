@@ -67,7 +67,7 @@ class MCTSTree:
         max_index = children.index(best_node)
         return self.initialState.actions[max_index]
 
-    def runMCTS(self, player_id, max_time=5):
+    def runMCTS(self, player_id, max_time=3):
         start_time = time.time()
         while time.time()-start_time < max_time:
             current = self.rootNode
