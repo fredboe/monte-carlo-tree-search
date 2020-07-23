@@ -74,7 +74,7 @@ class Match:
     def run_Match(self, state):
         """
             runs the match: asks for actions until the game is over
-                            prints winner
+                            then prints the winner
         """
         while not state.terminal_state():
             if state.player_id == 1:
