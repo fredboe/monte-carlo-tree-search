@@ -18,7 +18,9 @@ I would be really pleased about some suggested improvements for my code or other
 
 ## Execute the code
 To see results you just need to execute RunMatch.py **-** soon you will be able to change the agents very easy and fast  (at the moment you have to change the functions name in run_match)
-
+```
+python RunMatch.py
+```
 ## Further readings
 * https://www.aaai.org/Papers/AIIDE/2008/AIIDE08-036.pdf
 * https://www.youtube.com/watch?v=UXW2yZndl7U
