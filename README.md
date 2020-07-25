@@ -22,7 +22,7 @@ match = Match(("MCTS", "ALPHABETA"), start_board)
 ```
 ### Change some parameters
 There are some parameters you can change to experiment with the results.    
-For example, you can change the depth in AlphaBeta.py (line 6)
+For example, you can change the depth in AlphaBeta.py (line 6).
 ```
 def get_action(self, state, player_id, depth=6):
 ```
