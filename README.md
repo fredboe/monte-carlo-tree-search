@@ -7,7 +7,6 @@ Furthermore, you can find some other agents (AlphaBeta, Random) which you can tr
 For those who find this algorithm interesting I will also add some further reading/information below.
 
 ## Code
-I would be really pleased about some suggested improvements for my code or other stuff like documentation.
 
 ## Execute the code
 ### The first execution
