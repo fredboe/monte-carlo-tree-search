@@ -98,4 +98,4 @@ if __name__ == "__main__":
                                                  "RANDOM", "REALWORLD")
         second parameter = start_board (string)
         """
-    match1 = Match(("MCTS", "ALPHABETA"), start_board)
+    match = Match(("MCTS", "ALPHABETA"), start_board)
