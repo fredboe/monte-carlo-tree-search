@@ -17,6 +17,7 @@ python RunMatch.py
 ```
 ### Changing the agents
 To change the agents you just need to change the first parameter in the Match obj. The possible agents are "MCTS", "REALWORLD" (you can play), "ALPHABETA", "RANDOM".
+The first element of the tuple is player 1. The second element of the tuple is player 2.
 ```
 match = Match(("MCTS", "ALPHABETA"), start_board)
 ```
