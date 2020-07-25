@@ -21,7 +21,8 @@ To change the agents you just need to change the first parameter in the Match ob
 match = Match(("MCTS", "ALPHABETA"), start_board)
 ```
 ### Change some parameters
-There are some parameters you can change to experiment with the results.    For example, you can change the depth in AlphaBeta.py (line 6)
+There are some parameters you can change to experiment with the results.    
+For example, you can change the depth in AlphaBeta.py (line 6)
 ```
 def get_action(self, state, player_id, depth=6):
 ```
